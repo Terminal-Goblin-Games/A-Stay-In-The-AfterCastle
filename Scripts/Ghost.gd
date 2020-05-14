@@ -5,11 +5,13 @@ var current_hp = 100
 var max_dmg = 100
 var current_dmg = 25
 onready var player = get_parent().get_node("Player")
+onready var timer = get_parent().get_node("Player/CanvasLayer/GameTime")
 var speed = 50
 var velocity = Vector2.ZERO
 var can_hit = true
 enum states {IDLE, WALKING, HURT, DEAD}
 var state = states.IDLE
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_to_group("enemies")
@@ -68,13 +70,13 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 # Handles our phase setting based on the timer node of this scene
 # Note that this timer is independant of the main game timer from the player
 func set_phase():
-	if $Timer.time_left < 50 && $Timer.time_left >= 15:
+	if timer.time_left < 30 && timer.time_left >= 15:
 		modulate.a = 0.5
 		if current_hp > 50:
 			current_hp = 50
 		current_dmg = 50
 		speed = 75
-	if $Timer.time_left < 40:
+	if timer.time_left < 15:
 		modulate.a = 0.3
 		if current_hp > 25:
 			current_hp = 25

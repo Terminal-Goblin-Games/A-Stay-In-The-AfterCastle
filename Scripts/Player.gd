@@ -56,6 +56,7 @@ func get_input():
 func _ready():
 	$Sprite2.visible = false
 	$Sprite2/Area2D.monitoring = false
+	$Sprite2.modulate.a = .7
 	$CanvasLayer/VBoxContainer/Hp_Bar.value = current_hp
 	$"CanvasLayer/ GameOverScreen".visible = false
 	$CanvasLayer/NightFinishScreen.visible = false
@@ -168,22 +169,26 @@ func hit(dmg, name):
 func set_sprites_and_hb(dir):
 	if dir == "RIGHT":
 		$Sprite.scale.x = 1
-		$Sprite2.scale.x = -1
+		$Sprite2.scale.x = -2
 		$Sprite2.position = Vector2(32.466,-3.788)
 		$Sprite2.rotation = 179.3
+		#$Sprite2.scale = Vector2(3,1)
 	if dir == "LEFT":
 		$Sprite.scale.x = -1
-		$Sprite2.scale.x = 1
+		$Sprite2.scale.x = 2
 		$Sprite2.position = Vector2(-36.049, -3.788)
 		$Sprite2.rotation = 179.3
+		#$Sprite2.scale = Vector2(3,1)
 	if dir == "UP":
 		$Sprite2.position = Vector2(0.844,-32.373)
 		$Sprite2.scale.x = -1
 		$Sprite2.rotation = 90.2
+		#$Sprite2.scale = Vector2(3,1)
 	if dir == "DOWN":
 		$Sprite2.position = Vector2(-2.762,29.208)
 		$Sprite2.scale.x = 1
 		$Sprite2.rotation = 190.8
+		#$Sprite2.scale = Vector2(3,1)
 func knockback(name):
 	var pos = get_parent().get_node(name).global_position
 	velocity = (global_position + pos).normalized() * speed

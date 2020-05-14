@@ -27,3 +27,15 @@ func _on_Button_button_down():
 
 func overall_score(score):
 	ovr_score =+ score
+
+
+func _on_TextureButton_button_down():
+	randomize()
+	var level = randi()%3+1
+	match level:
+		1:
+			get_tree().change_scene("res://Scenes/Level1.tscn")
+		2:
+			get_tree().change_scene("res://Scenes/Level2.tscn")
+		3:
+			get_tree().change_scene("res://Scenes/Level3.tscn")

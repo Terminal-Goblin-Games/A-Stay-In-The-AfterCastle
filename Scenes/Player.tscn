@@ -208,6 +208,7 @@ current = true
 [node name="Sprite2" type="Sprite" parent="."]
 position = Vector2( 28.5827, 15.061 )
 rotation = 0.0331613
+scale = Vector2( 5, 1 )
 texture = ExtResource( 3 )
 
 [node name="Area2D" type="Area2D" parent="Sprite2"]
