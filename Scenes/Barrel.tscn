@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Sprites/barrel-Sheet.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Barrel.gd" type="Script" id=2]
+[ext_resource path="res://idle.tres" type="Animation" id=3]
+[ext_resource path="res://break.tres" type="Animation" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 21.6466, 23.1261 )
+
+[node name="StaticBody2D" type="StaticBody2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+hframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/break = ExtResource( 4 )
+anims/idle = ExtResource( 3 )
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
