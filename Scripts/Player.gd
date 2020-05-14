@@ -112,6 +112,8 @@ func state_machine():
 					attack()
 		states.HURT:
 			can_be_hit = false
+			$Sprite2.visible = false
+			$Sprite2/Area2D.monitoring = false
 			$AnimationPlayer.play("Hurt")
 			is_shake = true
 			can_input = false
