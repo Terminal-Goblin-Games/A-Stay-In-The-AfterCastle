@@ -35,6 +35,14 @@ func get_input():
 		if Input.is_action_pressed("right"):
 			dir = Vector2(1,0)
 			set_sprites_and_hb("RIGHT")
+		if Input.is_action_pressed("right") && Input.is_action_pressed("up"):
+			dir = Vector2(1,-1)
+		if Input.is_action_pressed("right") && Input.is_action_pressed("down"):
+			dir = Vector2(1,1)
+		if Input.is_action_pressed("left") && Input.is_action_pressed("down"):
+			dir = Vector2(-1,1)
+		if Input.is_action_pressed("left") && Input.is_action_pressed("up"):
+			dir = Vector2(-1,-1)
 		if Input.is_action_just_pressed("attack"):
 			if dir == Vector2(0,-1):
 				act_state = act_states.ATTACKING_UP
@@ -88,7 +96,8 @@ func state_machine():
 				act_states.ATTACKING:
 					$AnimationPlayer.play("Attacking")
 					#attack()
-					swing_sword()
+					#swing_sword()
+					pass
 				act_states.ATTACKING_UP:
 					$AnimationPlayer.play("Attacking_Up")
 					swing_sword()
@@ -137,6 +146,7 @@ func state_machine():
 			$CanvasLayer/GameTime.stop()
 			$"CanvasLayer/ GameOverScreen".visible = true
 			$"CanvasLayer/ GameOverScreen/Score".text = String(main.ovr_score)
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func attack():
 	$Sprite2/Area2D.monitoring = true
@@ -226,7 +236,9 @@ func _on_GameTime_timeout():
 	$CanvasLayer/NightFinishScreen/OverScore.text = "Overall score: " + String(main.ovr_score)
 	$CanvasLayer/NightFinishScreen.visible = true
 	get_tree().paused = true
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	$CanvasLayer/GameTime.stop()
+	
 
 
 func _on_NextNight_button_down():
@@ -250,5 +262,6 @@ func sword_control():
 	$Rot_pos/Sword_Pos.look_at(get_global_mouse_position())# = get_angle_to(get_global_mouse_position())
 
 func swing_sword():
-	$Rot_pos/Tween.interpolate_property($Rot_pos/Sword_Pos/, "transform/pos",$Rot_pos/QSwing_A.global_position, $Rot_pos/Swing_B.global_position, 1.0, Tween.TRANS_BACK,Tween.EASE_IN)
-	$Rot_pos/Tween.start()
+#	$Rot_pos/Tween.interpolate_property($Rot_pos/Sword_Pos/, "transform/pos",$Rot_pos/QSwing_A.global_position, $Rot_pos/Swing_B.global_position, 1.0, Tween.TRANS_BACK,Tween.EASE_IN)
+#	$Rot_pos/Tween.start()
+	pass

@@ -36,6 +36,11 @@ func spawn():
 # Quick and dirty function to see if the spawner can run
 # Currently it will only spawn a max of 30 children
 func check_if_can_spawn():
+	var bodies =  get_overlapping_bodies()
+	var i = 0
+	for body in get_overlapping_bodies():
+		i += 1
+	
 	if get_parent().get_child_count() > 30 || player_in:
 		can_spawn = false
 	else:
@@ -43,10 +48,13 @@ func check_if_can_spawn():
 
 # Player being in the spawn area was causing issues. So we no longer let it spawn when the players inside
 func _on_Spawner_body_entered(body):
+	print("Signal off:",player_in)
 	if body.get_name() == "Player":
 		player_in = true
+		print("Made it here")
 
 # Since we want that spawner to keep working after the player leaves we needed to reset the flag to true on player exit
 func _on_Spawner_body_exited(body):
 	if body.get_name() == "Player":
 		player_in = false
+		print("Exiting: ", player_in)
