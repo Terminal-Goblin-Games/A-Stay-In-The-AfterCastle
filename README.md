@@ -7,7 +7,7 @@ You must survive the entire night for your score to be added to your overall sco
 
 # Controls
 WASD to move
-F/shift to attack
+Swing mouse around to hit things with your sword
 
 # About
 This was made as a personal game jam project to create a fully realized game in a weekends time
@@ -18,6 +18,4 @@ Or clone this repo and open it in Godot
 
 A third option is downloading from Itch.io: https://terminalgoblin.itch.io/a-stay-in-the-aftercastle
 # Future features
-The game will be expanded upon in the following weeks. Things I want to add are as follows:
-1. Visual representations of the ghosts state, things like getting smaller or maybe more transparent as the timer goes down
-2. Hard Mode. The ability to go into the castle earlier each night to have more time per night but you have to face even beefier ghosts with higher score values
+Current project is working on procedurally generated dungeons
