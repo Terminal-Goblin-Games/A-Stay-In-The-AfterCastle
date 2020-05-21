@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Sprites/jack-Sheet.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/slash.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/hp_under.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/hp_bar.png" type="Texture" id=5]
+[ext_resource path="res://Scenes/Sword.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 11.3099, 22.5532 )
@@ -206,6 +207,7 @@ anims/Walking = SubResource( 8 )
 current = true
 
 [node name="Sprite2" type="Sprite" parent="."]
+visible = false
 position = Vector2( 28.5827, 15.061 )
 rotation = 0.0331613
 scale = Vector2( 5, 1 )
@@ -335,6 +337,23 @@ text = "Next Night!"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Rot_pos" type="Position2D" parent="."]
+
+[node name="Sword_Pos" type="Position2D" parent="Rot_pos"]
+position = Vector2( 29.2564, 3.77899 )
+
+[node name="Sword" parent="Rot_pos/Sword_Pos" instance=ExtResource( 6 )]
+position = Vector2( -0.0978088, -5.29114 )
+rotation = 1.5708
+
+[node name="Tween" type="Tween" parent="Rot_pos"]
+
+[node name="Swing_A" type="Position2D" parent="Rot_pos"]
+position = Vector2( 28.8921, -23.9234 )
+
+[node name="Swing_B" type="Position2D" parent="Rot_pos"]
+position = Vector2( 28.524, 27.7879 )
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="Sprite2/Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="timeout" from="CanvasLayer/GameTime" to="." method="_on_GameTime_timeout"]

@@ -62,6 +62,7 @@ func _ready():
 	$CanvasLayer/NightFinishScreen.visible = false
 	$CanvasLayer/GameTime.start()
 	get_tree().paused = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -75,6 +76,8 @@ func _process(delta):
 		shake_cam()
 	else:
 		set_cam_back()
+	sword_control()
+
 # Handles our state, used for animation, etc
 func state_machine():
 	match state:
@@ -84,32 +87,40 @@ func state_machine():
 					$AnimationPlayer.play("Idle")
 				act_states.ATTACKING:
 					$AnimationPlayer.play("Attacking")
-					attack()
+					#attack()
+					swing_sword()
 				act_states.ATTACKING_UP:
 					$AnimationPlayer.play("Attacking_Up")
-					attack()
+					swing_sword()
+					#attack()
 				act_states.ATTACKING_DOWN:
 					$AnimationPlayer.play("Attacking_Down")
-					attack()
+					swing_sword()
+					#attack()
 		states.WALKING:
 			match act_state:
 				act_states.IDLE:
 					$AnimationPlayer.play("Walking")
 				act_states.ATTACKING:
 					$AnimationPlayer.play("Attacking")
-					attack()
+					swing_sword()
+					#attack()
 				act_states.ATTACKING_UP:
 					$AnimationPlayer.play("Attacking_Up")
-					attack()
+					swing_sword()
+					#attack()
 				act_states.ATTACKING_DOWN:
 					$AnimationPlayer.play("Attacking_Down")
-					attack()
+					swing_sword()
+					#attack()
 				act_states.ATTACKING_UP:
 					$AnimationPlayer.play("Attacking_Up")
-					attack()
+					swing_sword()
+					#attack()
 				act_states.ATTACKING_DOWN:
 					$AnimationPlayer.play("Attacking_Down")
-					attack()
+					#attack()
+					swing_sword()
 		states.HURT:
 			can_be_hit = false
 			$Sprite2.visible = false
@@ -140,16 +151,16 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	can_input = true
 
 func _on_Area2D_body_entered(body):
-	if body.is_in_group("hittable"):
-		body.hit()
-		is_shake = true
-		yield(get_tree().create_timer(0.05),"timeout")
-		is_shake = false
-	if body.is_in_group("enemies") && is_instance_valid(body):
-		is_shake = true
-		body.hit(dmg)
-		yield(get_tree().create_timer(0.05),"timeout")
-		is_shake = false
+#	if body.is_in_group("hittable"):
+#		body.hit()
+	is_shake = true
+	yield(get_tree().create_timer(0.05),"timeout")
+	is_shake = false
+#	if body.is_in_group("enemies") && is_instance_valid(body):
+	#	is_shake = true
+#		body.hit(dmg)
+	#	yield(get_tree().create_timer(0.05),"timeout")
+	#	is_shake = false
 func score(num):
 	score += num
 
@@ -233,3 +244,11 @@ func shake_cam():
 	$Camera2D.set_offset(Vector2(rand_range(-1.0, 1.0) * shake_amt, rand_range(-1.0, 1.0) * shake_amt))
 func set_cam_back():
 	$Camera2D.set_offset(Vector2.ZERO)
+
+func sword_control():
+	$Rot_pos.rotation = get_angle_to(get_global_mouse_position())
+	$Rot_pos/Sword_Pos.look_at(get_global_mouse_position())# = get_angle_to(get_global_mouse_position())
+
+func swing_sword():
+	$Rot_pos/Tween.interpolate_property($Rot_pos/Sword_Pos/, "transform/pos",$Rot_pos/QSwing_A.global_position, $Rot_pos/Swing_B.global_position, 1.0, Tween.TRANS_BACK,Tween.EASE_IN)
+	$Rot_pos/Tween.start()

@@ -1,10 +1,12 @@
 extends Node2D
-
+var dmg = 25
 
 # Declare member variables here. Examples:
 # var a = 2
-# var b = "text"
-
+# var b = "text""
+onready var player = get_parent().get_parent().get_parent() # wtf
+var is_shake = false
+var shake_amt = 15
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,30 +15,23 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
-
-# Credit: Game Endeavor https://github.com/GameEndeavor/CollabJam
-# His channel: https://www.youtube.com/channel/UCLweX1UtQjRjj7rs_0XQ2Eg
-# Video I saw this in: https://www.youtube.com/watch?v=u0GZKJGeQLY&t=343s
-func aim_at_target(target_position : Vector2):
-	var angle = target_position.angle()
-	position.x = cos(angle) * 50
-	position.y = sin(angle) * 50
-	rotation = angle
-	show_behind_parent = false if angle >= 0 else true
-	look_at(get_global_mouse_position())
-
-
-
-func attack(target_position):
-	get_angle_to(target_position)
+	if is_shake:
+		player.shake_cam()
+	else:
+		player.set_cam_back()
 
 
 func _on_Area2D_body_entered(body):
-		if body.has_method("hit"):
+	print(body.get_name())
+	if body.get_name() != "Sword" && body.get_name() != "TileMap" && body.get_name() != "Player":
+		if body.is_in_group("hittable"):
 			body.hit()
+		if body.is_in_group("enemies") && is_instance_valid(body):
+			body.hit(dmg)
+		is_shake = true
+		yield(get_tree().create_timer(0.05),"timeout")
+		is_shake = false
+	else:
+		pass
+		
 
-
-func _on_Area2D_area_entered(area):
-	if area.has_method("hit"):
-			area.hit()

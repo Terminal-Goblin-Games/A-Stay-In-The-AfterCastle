@@ -3,6 +3,7 @@ extends Area2D
 var ghost = preload("res://Scenes/Ghost.tscn")
 var barrel = preload("res://Scenes/Barrel.tscn")
 var can_spawn = true
+var player_in = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	check_if_can_spawn()
@@ -35,7 +36,7 @@ func spawn():
 # Quick and dirty function to see if the spawner can run
 # Currently it will only spawn a max of 30 children
 func check_if_can_spawn():
-	if get_parent().get_child_count() > 30:
+	if get_parent().get_child_count() > 30 || player_in:
 		can_spawn = false
 	else:
 		can_spawn = true
@@ -43,9 +44,9 @@ func check_if_can_spawn():
 # Player being in the spawn area was causing issues. So we no longer let it spawn when the players inside
 func _on_Spawner_body_entered(body):
 	if body.get_name() == "Player":
-		can_spawn = false
+		player_in = true
 
 # Since we want that spawner to keep working after the player leaves we needed to reset the flag to true on player exit
 func _on_Spawner_body_exited(body):
 	if body.get_name() == "Player":
-		can_spawn = true
+		player_in = false

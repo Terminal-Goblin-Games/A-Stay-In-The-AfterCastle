@@ -1,23 +1,30 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Sprites/sword.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Sword.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 3.8147, 21.6929 )
+extents = Vector2( 4.26313, 21.5002 )
 
-[node name="Sword" type="Node2D"]
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 4.08214, 21.6252 )
+
+[node name="Sword" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-rotation = 3.13946
-scale = Vector2( 0.5, 0.5 )
+position = Vector2( 1.38163, -24.1413 )
 texture = ExtResource( 1 )
 
-[node name="Area2D" type="Area2D" parent="Sprite"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/Area2D"]
-position = Vector2( -1.74628, -0.24947 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.270544, -24.3497 )
 shape = SubResource( 1 )
-[connection signal="area_entered" from="Sprite/Area2D" to="." method="_on_Area2D_area_entered"]
-[connection signal="body_entered" from="Sprite/Area2D" to="." method="_on_Area2D_body_entered"]
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 0.270546, -24.3497 )
+collision_layer = 7
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 2 )
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
