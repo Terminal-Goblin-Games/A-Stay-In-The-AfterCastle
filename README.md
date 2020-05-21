@@ -12,6 +12,11 @@ F/shift to attack
 # About
 This was made as a personal game jam project to create a fully realized game in a weekends time
 
+# Installation
+Simply download the .exe if you are on windows, or the .x86-64 if you are on Linux
+Or clone this repo and open it in Godot
+
+A third option is downloading from Itch.io: https://terminalgoblin.itch.io/a-stay-in-the-aftercastle
 # Future features
 The game will be expanded upon in the following weeks. Things I want to add are as follows:
 1. Visual representations of the ghosts state, things like getting smaller or maybe more transparent as the timer goes down
