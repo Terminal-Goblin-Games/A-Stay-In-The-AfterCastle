@@ -25,6 +25,10 @@ config/windows_native_icon="res://Sprites/icon.ico"
 
 Main="*res://Scripts/Main.gd"
 
+[display]
+
+window/size/fullscreen=true
+
 [input]
 
 up={

@@ -205,6 +205,7 @@ anims/Walking = SubResource( 8 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
+zoom = Vector2( 0.5, 0.5 )
 
 [node name="Sprite2" type="Sprite" parent="."]
 visible = false
